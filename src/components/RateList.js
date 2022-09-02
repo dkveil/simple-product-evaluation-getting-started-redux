@@ -1,6 +1,6 @@
 import React from "react"
 import { useSelector } from "react-redux"
-
+import RateItem from "./RateItem"
 
 const RatesList = () => {
     const ratesList = useSelector(state => state.rates.ratesList)
@@ -8,9 +8,11 @@ const RatesList = () => {
     return (
         <ul>
             {ratesList?.map(rate => (
-                <li key={rate.user}>
-                    {rate.user} {rate.rate} {rate.comment}
-                </li>
+                <RateItem
+                    user={rate.user}
+                    rate={rate.rate}
+                    comment={rate.comment}
+                />
             ))}
         </ul>
     )
