@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch} from "react-redux";
 import { addRate } from "../features/ratesSlice";
+import { v4 as uuidv4 } from 'uuid'
 
 const Form = () => {
     const [inputValue, setInputValue] = React.useState({
@@ -22,6 +23,7 @@ const Form = () => {
 
         if(inputValue.user && inputValue.comment){
             dispatch(addRate({
+                id: uuidv4(),
                 name: inputValue.user,
                 rate: inputValue.rate,
                 comment: inputValue.comment
@@ -30,7 +32,7 @@ const Form = () => {
     }
 
     return (
-        <form onSubmit={handleOnSubmit}>
+        <form onSubmit={handleOnSubmit} style={{padding: "20px"}}>
             <div>
                 <label htmlFor="user">
                     User:
