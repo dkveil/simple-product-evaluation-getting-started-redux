@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch} from "react-redux";
-import { addRate } from "../features/ratesSlice";
+import { addRate, editRate } from "../features/ratesSlice";
 import { v4 as uuidv4 } from 'uuid'
 
-const Form = () => {
+const Form = ({id, user, rate, comment}) => {
     const [inputValue, setInputValue] = React.useState({
-        user: "",
-        rate: 0,
-        comment: ""
+        user: user ? user : "",
+        rate: rate ? rate : 0,
+        comment: comment ? comment : ""
     })
     const dispatch = useDispatch()
 
@@ -22,12 +22,23 @@ const Form = () => {
         e.preventDefault()
 
         if(inputValue.user && inputValue.comment){
-            dispatch(addRate({
-                id: uuidv4(),
-                name: inputValue.user,
-                rate: inputValue.rate,
-                comment: inputValue.comment
-            }))
+
+            if(id){
+                dispatch(editRate({
+                    id,
+                    user: inputValue.user,
+                    rate: inputValue.rate,
+                    comment: inputValue.comment,
+                })
+            )}
+            else {
+                dispatch(addRate({
+                    id: uuidv4(),
+                    user: inputValue.user,
+                    rate: inputValue.rate,
+                    comment: inputValue.comment
+                }))
+            }
         }
     }
 
@@ -67,7 +78,7 @@ const Form = () => {
                 </label>
             </div>
             <button type="submit">
-                add comment
+                {id ? "edit comment" : "add comment"}
             </button>
         </form>
     );

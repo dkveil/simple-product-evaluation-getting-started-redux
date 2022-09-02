@@ -1,8 +1,12 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { editRate, removeRate } from "../features/ratesSlice";
+import { removeRate } from "../features/ratesSlice";
+import Form from "./Form";
 
 const RateItem = ({id, user, rate, comment}) => {
+
+    const [isVisibleForm, setIsVisibleForm] = React.useState(false)
+
     const dispatch = useDispatch()
 
     return (
@@ -10,8 +14,12 @@ const RateItem = ({id, user, rate, comment}) => {
             <p>User name: {user}</p>
             <p>Rate: {rate}</p>
             <p>Comment: "{comment}"</p>
-            <button>edit comment</button>
-            <button onClick={() => dispatch(removeRate({id}))}>delete comment</button>
+            {isVisibleForm ? <Form id={id} user={user} rate={rate} comment={comment}/> : (
+                <>
+                    <button onClick={() => setIsVisibleForm(true)}>edit comment</button>
+                    <button onClick={() => dispatch(removeRate({id}))}>delete comment</button>
+                </>
+            )}
         </li>
     )
 }

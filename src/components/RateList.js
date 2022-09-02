@@ -9,6 +9,7 @@ const RatesList = () => {
         <ul>
             {ratesList?.map(rate => (
                 <RateItem
+                    key={rate.id}
                     id={rate.id}
                     user={rate.user}
                     rate={rate.rate}

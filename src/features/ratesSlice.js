@@ -15,13 +15,16 @@ const ratesSlice  = createSlice({
             }
         },
         editRate: (state, action) => {
-            state = state.ratesList.map(rate => {
-                if(rate.id === action.payload.id){
-                    return action.payload
-                } else {
-                    return rate
-                }
-            })
+            return {
+                ...state,
+                ratesList: state.ratesList.map(rate => {
+                    if(rate.id === action.payload.id){
+                        return action.payload
+                    } else {
+                        return rate
+                    }
+                })
+            }
         },
         removeRate: (state, action) => {
             return {
