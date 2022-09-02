@@ -9,19 +9,25 @@ const RateItem = ({id, user, rate, comment}) => {
 
     const dispatch = useDispatch()
 
+    const toogleVlisibleForm = () => setIsVisibleForm(perv => !perv)
+
     return (
-        <li style={{padding: "8px"}}>
+        <li style={{ padding: "8px" }}>
             <p>User name: {user}</p>
             <p>Rate: {rate}</p>
             <p>Comment: "{comment}"</p>
-            {isVisibleForm ? <Form id={id} user={user} rate={rate} comment={comment}/> : (
+            {isVisibleForm ? (
+                <Form id={id} user={user} rate={rate} comment={comment} hideForm={toogleVlisibleForm}/>
+            ) : (
                 <>
-                    <button onClick={() => setIsVisibleForm(true)}>edit comment</button>
-                    <button onClick={() => dispatch(removeRate({id}))}>delete comment</button>
+                    <button onClick={toogleVlisibleForm}>edit comment</button>
+                    <button onClick={() => dispatch(removeRate({ id }))}>
+                        delete comment
+                    </button>
                 </>
             )}
         </li>
-    )
+    );
 }
 
 export default RateItem;

@@ -3,7 +3,7 @@ import { useDispatch} from "react-redux";
 import { addRate, editRate } from "../features/ratesSlice";
 import { v4 as uuidv4 } from 'uuid'
 
-const Form = ({id, user, rate, comment}) => {
+const Form = ({id, user, rate, comment, hideForm}) => {
     const [inputValue, setInputValue] = React.useState({
         user: user ? user : "",
         rate: rate ? rate : 0,
@@ -22,15 +22,15 @@ const Form = ({id, user, rate, comment}) => {
         e.preventDefault()
 
         if(inputValue.user && inputValue.comment){
-
             if(id){
                 dispatch(editRate({
                     id,
                     user: inputValue.user,
                     rate: inputValue.rate,
                     comment: inputValue.comment,
-                })
-            )}
+                }))
+                hideForm();
+            }
             else {
                 dispatch(addRate({
                     id: uuidv4(),
