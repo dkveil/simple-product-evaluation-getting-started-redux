@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
 import { addRate } from "../features/ratesSlice";
 
 const Form = () => {
@@ -20,9 +20,9 @@ const Form = () => {
     const handleOnSubmit = (e) => {
         e.preventDefault()
 
-        if(inputValue.name && inputValue.comment){
+        if(inputValue.user && inputValue.comment){
             dispatch(addRate({
-                name: inputValue.name,
+                name: inputValue.user,
                 rate: inputValue.rate,
                 comment: inputValue.comment
             }))

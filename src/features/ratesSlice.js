@@ -1,16 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = []
+const initialState = {
+    ratesList: []
+}
 
 const ratesSlice  = createSlice({
     name: "rates",
     initialState,
     reducers: {
         addRate: (state, action) => {
-            state = [...state, action.payload]
+            return {
+                ...state,
+                ratesList: [ ...state.ratesList, action.payload]
+            }
         },
         editRate: (state, action) => {
-            state = state.map(rate => {
+            state = state.ratesList.map(rate => {
                 if(rate.id === action.payload.id){
                     return action.payload
                 } else {
@@ -19,7 +24,10 @@ const ratesSlice  = createSlice({
             })
         },
         removeRate: (state, action) => {
-            state = state.filter(state => state.id !== action.payload.id)
+            return {
+                ...state,
+                ratesList: state.ratesList.filter(rate => rate.id !== action.payload.id)
+            }
         }
     }
 })
