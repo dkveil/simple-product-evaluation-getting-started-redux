@@ -18,7 +18,7 @@ const ratesSlice  = createSlice({
                 }
             })
         },
-        removeRate: (state) => {
+        removeRate: (state, action) => {
             state = state.filter(state => state.id !== action.payload.id)
         }
     }

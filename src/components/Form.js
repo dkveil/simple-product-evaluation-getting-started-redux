@@ -1,4 +1,6 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { addRate } from "../features/ratesSlice";
 
 const Form = () => {
     const [inputValue, setInputValue] = React.useState({
@@ -6,6 +8,7 @@ const Form = () => {
         rate: 0,
         comment: ""
     })
+    const dispatch = useDispatch()
 
     const handleChange = (e) => {
         setInputValue(prev => ({
@@ -14,8 +17,20 @@ const Form = () => {
         }))
     }
 
+    const handleOnSubmit = (e) => {
+        e.preventDefault()
+
+        if(inputValue.name && inputValue.comment){
+            dispatch(addRate({
+                name: inputValue.name,
+                rate: inputValue.rate,
+                comment: inputValue.comment
+            }))
+        }
+    }
+
     return (
-        <form>
+        <form onSubmit={handleOnSubmit}>
             <div>
                 <label htmlFor="user">
                     User:
@@ -49,6 +64,9 @@ const Form = () => {
                     ></input>
                 </label>
             </div>
+            <button type="submit">
+                add comment
+            </button>
         </form>
     );
 }
